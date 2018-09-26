@@ -1,4 +1,4 @@
-package com.meldhet.cheesycode.meldhet;
+package com.cheesycode.meldhet;
 
 import android.Manifest;
 import android.content.Intent;
@@ -59,7 +59,6 @@ public class IntroActivity extends AppIntro2 {
         addSlide(AppIntroFragment.newInstance(sliderPage));
         setSwipeLock(false);
 
-        prefs.edit().putBoolean("firstrun", false).commit();
 
     }
 
@@ -69,6 +68,8 @@ public class IntroActivity extends AppIntro2 {
         Intent mainactivity = new Intent(IntroActivity.this, MainActivity.class);
         mainactivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         this.startActivity(mainactivity);
+        prefs.edit().putBoolean("firstrun", false).commit();
+
         finish();
     }
 
@@ -78,6 +79,8 @@ public class IntroActivity extends AppIntro2 {
         Intent mainactivity = new Intent(IntroActivity.this, MainActivity.class);
         mainactivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         this.startActivity(mainactivity);
+        prefs.edit().putBoolean("firstrun", false).commit();
+
         finish();
     }
 

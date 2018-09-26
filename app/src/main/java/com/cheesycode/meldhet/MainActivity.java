@@ -1,7 +1,9 @@
-package com.meldhet.cheesycode.meldhet;
+package com.cheesycode.meldhet;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -20,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -58,8 +61,9 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Failed to create picture, please reset permissions" , Toast.LENGTH_LONG).show();
             }
             if (photoFile != null) {
+
                 Uri photoURI = FileProvider.getUriForFile(this,
-                        "com.example.android.fileprovider",
+                        "com.cheesycode.meldhet.fileprovider",
                         photoFile);
                 Toast.makeText(this, R.string.fotoinstructie , Toast.LENGTH_LONG).show();
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
@@ -70,10 +74,9 @@ public class MainActivity extends AppCompatActivity {
 
         protected void onActivityResult(int requestCode, int resultCode, Intent data) {
             if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-
-                Bitmap myBitmap = BitmapFactory.decodeFile(mCurrentPhotoPath);
-
-                imageView.setImageBitmap(myBitmap);
+                Intent intent = new Intent(this, UploadActivity.class);
+                intent.putExtra("filepath", mCurrentPhotoPath);
+                this.startActivity(intent);
             }
         }
 
@@ -90,7 +93,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Save a file: path for use with ACTION_VIEW intents
         mCurrentPhotoPath = image.getAbsolutePath();
+
         return image;
     }
+
 }
 

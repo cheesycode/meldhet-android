@@ -1,4 +1,4 @@
-package com.meldhet.cheesycode.meldhet;
+package com.cheesycode.meldhet;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.meldhet.cheesycode.meldhet", appContext.getPackageName());
+        assertEquals("com.cheesycode.meldhet", appContext.getPackageName());
     }
 }

@@ -11,4 +11,6 @@
     <string name="iets_gezien_meld_het_nu">Iets gezien? Meld het nu!</string>
     <string name="app_name">Meld Het</string>
     <string name="fotoinstructie">Maak een duidelijke foto van de situatie</string>
+    <string name="channel_name">meldhet</string>
+    <string name="channel_description">Melding van de gemeente over jouw lopende zaken</string>
 </resources>

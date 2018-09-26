@@ -1,4 +1,4 @@
-package com.meldhet.cheesycode.meldhet;
+package com.cheesycode.meldhet;
 
 import org.junit.Test;
 
