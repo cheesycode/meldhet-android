@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.meldhet.cheesycode.meldhet.MainActivity">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/titleimage"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:adjustViewBounds="false"
+            android:cropToPadding="false"
+            android:scaleType="fitXY"
+
+            android:src="@drawable/banner"
+            app:layout_constraintBottom_toTopOf="@id/titletext"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/titletext"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/titleBackground"
+            android:fontFamily="casual"
+            android:gravity="bottom"
+            android:text="@string/iets_gezien_meld_het_nu"
+            android:textAlignment="center"
+            android:textColor="@color/colorWhite"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@id/guideline"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/image1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorGrapeFruit"
+        android:cropToPadding="true"
+        android:padding="30dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_icon_archary"
+        android:tint="@color/colorWhite"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/guideline3"
+        app:layout_constraintTop_toBottomOf="@id/guideline"
+        android:contentDescription="@string/item1"
+        android:clickable="true"
+        android:onClick="onImageOrTextClick"/>
+
+            <TextView
+                android:layout_marginTop="1dp"
+                app:layout_constraintTop_toBottomOf="@id/image1"
+                app:layout_constraintLeft_toLeftOf="@id/image1"
+                app:layout_constraintRight_toRightOf="@id/image1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/colorGrapeFruitDark"
+                android:padding="8dp"
+                android:text="@string/item1"
+                android:textAlignment="center"
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp"
+                android:clickable="true"
+                android:onClick="onImageOrTextClick"/>
+
+
+    <ImageView
+        android:id="@+id/image2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorBitterSweet"
+        android:cropToPadding="true"
+        android:padding="30dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_icon_basketball"
+        android:tint="@color/colorWhite"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintLeft_toRightOf="@id/guideline3"
+
+        app:layout_constraintRight_toLeftOf="@id/guideline4"
+        app:layout_constraintTop_toBottomOf="@id/guideline"
+        android:contentDescription="@string/item2"
+        android:clickable="true"
+        android:onClick="onImageOrTextClick"/>
+
+            <TextView
+                android:layout_marginTop="1dp"
+                app:layout_constraintTop_toBottomOf="@id/image2"
+                app:layout_constraintLeft_toLeftOf="@id/image2"
+                app:layout_constraintRight_toRightOf="@id/image2"
+                android:id="@+id/tv2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/colorBitterSweetDark"
+                android:padding="8dp"
+                android:text="@string/item2"
+                android:textAlignment="center"
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp"
+                android:clickable="true"
+                android:onClick="onImageOrTextClick"/>
+
+
+    <ImageView
+        android:id="@+id/image3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorFlower"
+        android:cropToPadding="true"
+        android:padding="30dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_icon_bowling"
+        android:tint="@color/colorWhite"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintLeft_toRightOf="@id/guideline4"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline"
+        android:contentDescription="@string/item3"
+        android:clickable="true"
+        android:onClick="onImageOrTextClick"/>
+
+            <TextView
+                android:layout_marginTop="1dp"
+                app:layout_constraintTop_toBottomOf="@id/image3"
+                app:layout_constraintLeft_toLeftOf="@id/image3"
+                app:layout_constraintRight_toRightOf="@id/image3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/colorFlowerDark"
+                android:padding="8dp"
+                android:text="@string/item3"
+                android:textAlignment="center"
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp"
+                android:clickable="true"
+                android:onClick="onImageOrTextClick"/>
+
+    <ImageView
+        android:id="@+id/image4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorGrass"
+        android:cropToPadding="true"
+        android:padding="30dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_icon_boxing"
+        android:tint="@color/colorWhite"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/guideline3"
+        app:layout_constraintTop_toBottomOf="@id/tv2"
+        android:contentDescription="@string/item4"
+        android:clickable="true"
+        android:onClick="onImageOrTextClick"/>
+
+    <TextView
+        android:layout_marginTop="1dp"
+        app:layout_constraintTop_toBottomOf="@id/image4"
+        app:layout_constraintLeft_toLeftOf="@id/image4"
+        app:layout_constraintRight_toRightOf="@id/image4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorGrassDark"
+        android:padding="8dp"
+        android:text="@string/item4"
+        android:textAlignment="center"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp"
+        android:clickable="true"
+        android:onClick="onImageOrTextClick"/>
+
+
+    <ImageView
+        android:id="@+id/image5"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorMint"
+        android:cropToPadding="true"
+        android:padding="30dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_icon_football"
+        android:tint="@color/colorWhite"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintLeft_toRightOf="@id/guideline3"
+
+        app:layout_constraintRight_toLeftOf="@id/guideline4"
+        app:layout_constraintTop_toBottomOf="@id/tv2"
+        android:contentDescription="@string/item5"
+        android:clickable="true"
+        android:onClick="onImageOrTextClick"/>
+
+    <TextView
+        android:layout_marginTop="1dp"
+        android:id="@+id/tv5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorMintDark"
+        android:padding="8dp"
+        android:text="@string/item5"
+        android:textAlignment="center"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="@id/image5"
+        app:layout_constraintRight_toRightOf="@id/image5"
+        app:layout_constraintTop_toBottomOf="@id/image5"
+        android:clickable="true"
+        android:onClick="onImageOrTextClick"/>
+
+
+    <ImageView
+        android:id="@+id/image6"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorAqua"
+        android:cropToPadding="true"
+        android:padding="30dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_icon_tenis"
+        android:tint="@color/colorWhite"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintLeft_toRightOf="@id/guideline4"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv2"
+        android:contentDescription="@string/item6"
+        android:clickable="true"
+        android:onClick="onImageOrTextClick"/>
+
+    <TextView
+        android:layout_marginTop="1dp"
+        android:id="@+id/tv6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAquaDark"
+        android:padding="8dp"
+        android:text="@string/item6"
+        android:textAlignment="center"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="@id/image6"
+        app:layout_constraintRight_toRightOf="@id/image6"
+        app:layout_constraintTop_toBottomOf="@id/image6"
+        android:clickable="true"
+        android:onClick="onImageOrTextClick"/>
+
+    <ImageView
+        android:id="@+id/image7"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorBlueJeans"
+        android:cropToPadding="true"
+        android:padding="30dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_icon_lontenis"
+        android:tint="@color/colorWhite"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/guideline3"
+        app:layout_constraintTop_toBottomOf="@id/tv6"
+        android:contentDescription="@string/item7"
+        android:clickable="true"
+        android:onClick="onImageOrTextClick"/>
+
+    <TextView
+        android:layout_marginTop="1dp"
+        app:layout_constraintTop_toBottomOf="@id/image7"
+        app:layout_constraintLeft_toLeftOf="@id/image7"
+        app:layout_constraintRight_toRightOf="@id/image7"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBlueJeansDark"
+        android:padding="8dp"
+        android:text="@string/item7"
+        android:textAlignment="center"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp"
+        android:clickable="true"
+        android:onClick="onImageOrTextClick"/>
+
+
+        <ImageView
+            android:id="@+id/image8"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/colorPinkRose"
+            android:contentDescription="@string/item8"
+            android:cropToPadding="true"
+            android:padding="30dp"
+            android:scaleType="fitXY"
+
+            android:src="@drawable/ic_icon_volleyball"
+            android:tint="@color/colorWhite"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintLeft_toRightOf="@id/guideline3"
+            app:layout_constraintRight_toLeftOf="@+id/guideline4"
+            app:layout_constraintTop_toBottomOf="@id/tv5"
+            android:clickable="true"
+            android:onClick="onImageOrTextClick"/>
+
+    <TextView
+        android:layout_marginTop="1dp"
+        app:layout_constraintTop_toBottomOf="@id/image8"
+        app:layout_constraintLeft_toLeftOf="@id/image8"
+        app:layout_constraintRight_toRightOf="@id/image8"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPinkRoseDark"
+        android:padding="8dp"
+        android:text="@string/item8"
+        android:textAlignment="center"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp"
+        android:clickable="true"
+        android:onClick="onImageOrTextClick"/>
+
+
+        <ImageView
+            android:id="@+id/image9"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/colorLavander"
+            android:clickable="true"
+            android:contentDescription="@string/item9"
+            android:cropToPadding="true"
+            android:onClick="onImageOrTextClick"
+            android:padding="30dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_icon_weight_lefting"
+            android:tint="@color/colorWhite"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintLeft_toRightOf="@id/guideline4"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv6" />
+
+    <TextView
+        android:layout_marginTop="1dp"
+        app:layout_constraintTop_toBottomOf="@id/image9"
+        app:layout_constraintLeft_toLeftOf="@id/image9"
+        app:layout_constraintRight_toRightOf="@id/image9"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorLavanderDark"
+        android:padding="8dp"
+        android:text="@string/item9"
+        android:textAlignment="center"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp"
+        android:clickable="true"
+        android:onClick="onImageOrTextClick"/>
+
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.33" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.33" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.6611111" />
+    </android.support.constraint.ConstraintLayout>
+
+</ScrollView>
