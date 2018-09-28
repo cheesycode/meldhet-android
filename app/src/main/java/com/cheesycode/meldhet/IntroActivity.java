@@ -1,13 +1,19 @@
 package com.cheesycode.meldhet;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.github.paolorotolo.appintro.AppIntro;
 import com.github.paolorotolo.appintro.AppIntro2;
@@ -22,6 +28,10 @@ public class IntroActivity extends AppIntro2 {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+            setWindowFlag(this, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, false);
+            getWindow().setStatusBarColor(Color.TRANSPARENT);
+
         prefs = getSharedPreferences("com.mycompany.myAppName", MODE_PRIVATE);
         if (!prefs.getBoolean("firstrun", true)) {
             Intent mainactivity = new Intent(IntroActivity.this, MainActivity.class);
@@ -61,6 +71,17 @@ public class IntroActivity extends AppIntro2 {
 
 
     }
+    public static void setWindowFlag(Activity activity, final int bits, boolean on) {
+        Window win = activity.getWindow();
+        WindowManager.LayoutParams winParams = win.getAttributes();
+        if (on) {
+            winParams.flags |= bits;
+        } else {
+            winParams.flags &= ~bits;
+        }
+        win.setAttributes(winParams);
+    }
+
 
     @Override
     public void onSkipPressed(Fragment currentFragment) {

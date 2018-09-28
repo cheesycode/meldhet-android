@@ -31,5 +31,7 @@ dependencies {
     implementation 'com.github.apl-devs:appintro:v4.2.3'
     implementation 'com.google.firebase:firebase-core:16.0.3'
     implementation 'com.google.firebase:firebase-messaging:17.3.2'
+    implementation 'com.github.jlmd:AnimatedCircleLoadingView:1.1.5@aar'
+
 }
 apply plugin: 'com.google.gms.google-services'
