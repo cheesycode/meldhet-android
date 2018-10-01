@@ -32,7 +32,7 @@ public class IntroActivity extends AppIntro2 {
             setWindowFlag(this, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, false);
             getWindow().setStatusBarColor(Color.TRANSPARENT);
 
-        prefs = getSharedPreferences("com.mycompany.myAppName", MODE_PRIVATE);
+        prefs = getSharedPreferences("com.cheesycode.MeldHet", MODE_PRIVATE);
         if (!prefs.getBoolean("firstrun", true)) {
             Intent mainactivity = new Intent(IntroActivity.this, MainActivity.class);
             mainactivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -68,6 +68,7 @@ public class IntroActivity extends AppIntro2 {
         sliderPage.setBgColor(getResources().getColor(R.color.colorGrassDark));
         addSlide(AppIntroFragment.newInstance(sliderPage));
         setSwipeLock(false);
+
 
 
     }

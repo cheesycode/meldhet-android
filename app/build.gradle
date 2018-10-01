@@ -32,6 +32,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:16.0.3'
     implementation 'com.google.firebase:firebase-messaging:17.3.2'
     implementation 'com.github.jlmd:AnimatedCircleLoadingView:1.1.5@aar'
-
+    implementation 'com.android.volley:volley:1.1.1'
 }
 apply plugin: 'com.google.gms.google-services'
