@@ -2,11 +2,15 @@ package com.cheesycode.meldhet;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.location.Location;
+import android.location.LocationProvider;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,6 +28,8 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.github.jlmd.animatedcircleloadingview.AnimatedCircleLoadingView;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -36,6 +42,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -51,21 +58,47 @@ public class UploadActivity extends AppCompatActivity {
     AnimatedCircleLoadingView animatedCircleLoadingView;
     private boolean skipMethod = false;
     private String imagePath;
-
+    private FusedLocationProviderClient mFusedLocationClient;
+    private static Location location = null;
+    private String issueType;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload);
-        IntroActivity.setWindowFlag(this,WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, false);
-        getWindow().setStatusBarColor(Color.TRANSPARENT);
-        animatedCircleLoadingView = findViewById(R.id.circle_loading_view);
-        storage = FirebaseStorage.getInstance();
-        storageReference = storage.getReference();
-        Intent intent = getIntent();
-        String filepath = intent.getStringExtra("filepath");
-        if(!skipMethod){
-        uploadImage(filepath);
+
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        if(ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_FINE_LOCATION ) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+
+            mFusedLocationClient.getLastLocation()
+                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+                            // Got last known location. In some rare situations this can be null.
+                            if (location != null) {
+                                if(UploadActivity.location == null){
+                                    UploadActivity.location = location;
+                                }
+                                if(UploadActivity.location.getAccuracy() > location.getAccuracy()){
+                                    UploadActivity.location = location;
+                                }
+                            }
+                        }
+                    });
+            IntroActivity.setWindowFlag(this, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, false);
+            getWindow().setStatusBarColor(Color.TRANSPARENT);
+            animatedCircleLoadingView = findViewById(R.id.circle_loading_view);
+            storage = FirebaseStorage.getInstance();
+            storageReference = storage.getReference();
+            Intent intent = getIntent();
+            String filepath = intent.getStringExtra("filepath");
+            issueType = intent.getStringExtra("issueType");
+            if (!skipMethod) {
+                uploadImage(filepath);
+            }
         }
+        //HANDLE NO PERMISSION
     }
 
     @Override
@@ -118,6 +151,16 @@ public class UploadActivity extends AppCompatActivity {
 
     public void Volleypostfunc()
     {
+        File file = new File(imagePath);
+        file.delete();
+        if(location == null) {
+            Toast.makeText(UploadActivity.this, "Locatie niet gevonden", Toast.LENGTH_LONG).show();
+            animatedCircleLoadingView.stopFailure();
+
+            //TODO Further error handling
+            return;
+        }
+
         String postUrl = ConfigHelper.getConfigValue(this, "api_url") + "create/";
         try {
             RequestQueue requestQueue = Volley.newRequestQueue(this);
@@ -125,9 +168,10 @@ public class UploadActivity extends AppCompatActivity {
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("id", MessagingService.getToken(this));
             jsonBody.put("image", imagePath);
-            jsonBody.put("tag", "item1");
-            jsonBody.put("lat", 1.21532);
-            jsonBody.put("long", 2.12356145);
+            jsonBody.put("tag", issueType);
+            jsonBody.put("lat", location.getLatitude());
+            jsonBody.put("lon", location.getLongitude());
+            jsonBody.put("acc", location.getAccuracy());
 
             final String mRequestBody = jsonBody.toString();
 
@@ -153,12 +197,9 @@ public class UploadActivity extends AppCompatActivity {
                 @Override
                 public byte[] getBody() throws AuthFailureError {
                     try {
-                        animatedCircleLoadingView.stopFailure();
-                        Toast.makeText(UploadActivity.this, "Failed " + mRequestBody, Toast.LENGTH_SHORT).show();
                         return mRequestBody == null ? null : mRequestBody.getBytes("utf-8");
                     } catch (UnsupportedEncodingException uee) {
                         animatedCircleLoadingView.stopFailure();
-//                        Toast.makeText(UploadActivity.this, "Failed " +mRequestBody, Toast.LENGTH_SHORT).show();
                         VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", mRequestBody, "utf-8");
                         return null;
                     }

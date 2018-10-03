@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     static final int REQUEST_TAKE_PHOTO = 1;
 
     private String mCurrentPhotoPath;
-    private String currentMeldingType;
+    private String currentIssueType;
     private ImageView imageView;
 
     @Override
@@ -51,11 +51,11 @@ public class MainActivity extends AppCompatActivity {
     public void onImageOrTextClick(View view) {
 
         if(view instanceof TextView){
-            currentMeldingType = ((TextView) view).getText().toString();
+            currentIssueType = ((TextView) view).getText().toString();
         }
         else if(view instanceof ImageView)
         {
-            currentMeldingType = ((ImageView) view).getContentDescription().toString();
+            currentIssueType = ((ImageView) view).getContentDescription().toString();
         }
 
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
             if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
                 Intent intent = new Intent(this, UploadActivity.class);
                 intent.putExtra("filepath", mCurrentPhotoPath);
+                intent.putExtra("issueType", currentIssueType);
                 this.startActivity(intent);
             }
         }
@@ -102,7 +103,5 @@ public class MainActivity extends AppCompatActivity {
 
         return image;
     }
-
-
 }
 

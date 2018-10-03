@@ -37,10 +37,10 @@ public class IntroActivity extends AppIntro2 {
             Intent mainactivity = new Intent(IntroActivity.this, MainActivity.class);
             mainactivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             this.startActivity(mainactivity);
+            overridePendingTransition(R.anim.scale, R.anim.scale);
             finish();
         }
-        askForPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 2);
-
+        askForPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 2);
 
         setSwipeLock(false);
         SliderPage sliderPage = new SliderPage();

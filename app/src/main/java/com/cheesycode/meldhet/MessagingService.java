@@ -27,8 +27,8 @@ public class MessagingService  extends FirebaseMessagingService {
         Log.d(TAG, "Notification Message Body: " + remoteMessage.getNotification().getBody());
         createNotificationChannel();
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_icon_archary)
-                .setLargeIcon(BitmapFactory.decodeResource(this.getResources(),R.drawable.ic_icon_basketball))
+                .setSmallIcon(R.drawable.ic_baseline_bug_report_24px)
+                .setLargeIcon(BitmapFactory.decodeResource(this.getResources(),R.drawable.ic_baseline_bug_report_24px))
                 .setContentTitle(remoteMessage.getNotification().getTitle())
                 .setContentText(remoteMessage.getNotification().getBody())
                 .setStyle(new NotificationCompat.BigTextStyle()

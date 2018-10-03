@@ -1,13 +1,12 @@
 <resources>
-    <string name="item1">item1</string>
-    <string name="item2">item2</string>
-    <string name="item3">item3</string>
-    <string name="item4">item4</string>
-    <string name="item5">item5</string>
-    <string name="item6">item6</string>
-    <string name="item7">item7</string>
-    <string name="item8">item8</string>
-    <string name="item9">item9</string>
+    <string name="item1">Kapot</string>
+    <string name="item2">Gevaarlijk</string>
+    <string name="item3">Beschadigd</string>
+    <string name="item4">Smerig</string>
+    <string name="item5">Overlast</string>
+    <string name="item6">Onduidelijk</string>
+    <string name="item7">Overig</string>
+    <string name="item8">Uitleg</string>
     <string name="iets_gezien_meld_het_nu">Iets gezien? Meld het nu!</string>
     <string name="app_name">Meld Het</string>
     <string name="fotoinstructie">Maak een duidelijke foto van de situatie</string>

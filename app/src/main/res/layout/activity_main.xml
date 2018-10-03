@@ -41,27 +41,27 @@
             app:layout_constraintRight_toRightOf="parent" />
 
 
-    <ImageView
-        android:id="@+id/image1"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_gravity="center"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/colorGrapeFruit"
-        android:cropToPadding="true"
-        android:padding="30dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_icon_archary"
-        android:tint="@color/colorWhite"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/guideline3"
-        app:layout_constraintTop_toBottomOf="@id/guideline"
-        android:contentDescription="@string/item1"
-        android:clickable="true"
-        android:onClick="onImageOrTextClick"/>
+        <ImageView
+            android:id="@+id/image1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="3dp"
+            android:background="@color/colorGrapeFruit"
+            android:clickable="true"
+            android:contentDescription="@string/item1"
+            android:cropToPadding="true"
+            android:onClick="onImageOrTextClick"
+            android:padding="30dp"
+            android:scaleType="fitXY"
+            android:tint="@color/colorWhite"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/guideline3"
+            app:layout_constraintTop_toBottomOf="@id/guideline"
+            app:srcCompat="@drawable/ic_baseline_report_24px" />
 
             <TextView
                 android:layout_marginTop="1dp"
@@ -80,28 +80,27 @@
                 android:onClick="onImageOrTextClick"/>
 
 
-    <ImageView
-        android:id="@+id/image2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_gravity="center"
-        android:layout_marginLeft="6dp"
-        android:layout_marginRight="6dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/colorBitterSweet"
-        android:cropToPadding="true"
-        android:padding="30dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_icon_basketball"
-        android:tint="@color/colorWhite"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintLeft_toRightOf="@id/guideline3"
-
-        app:layout_constraintRight_toLeftOf="@id/guideline4"
-        app:layout_constraintTop_toBottomOf="@id/guideline"
-        android:contentDescription="@string/item2"
-        android:clickable="true"
-        android:onClick="onImageOrTextClick"/>
+        <ImageView
+            android:id="@+id/image2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="3dp"
+            android:background="@color/colorBitterSweet"
+            android:clickable="true"
+            android:contentDescription="@string/item2"
+            android:cropToPadding="true"
+            android:onClick="onImageOrTextClick"
+            android:padding="30dp"
+            android:scaleType="fitXY"
+            android:tint="@color/colorWhite"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintLeft_toRightOf="@id/guideline3"
+            app:layout_constraintRight_toLeftOf="@id/guideline4"
+            app:layout_constraintTop_toBottomOf="@id/guideline"
+            app:srcCompat="@drawable/ic_baseline_report_problem_24px" />
 
             <TextView
                 android:layout_marginTop="1dp"
@@ -121,27 +120,27 @@
                 android:onClick="onImageOrTextClick"/>
 
 
-    <ImageView
-        android:id="@+id/image3"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_gravity="center"
-        android:layout_marginStart="6dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/colorFlower"
-        android:cropToPadding="true"
-        android:padding="30dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_icon_bowling"
-        android:tint="@color/colorWhite"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintLeft_toRightOf="@id/guideline4"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guideline"
-        android:contentDescription="@string/item3"
-        android:clickable="true"
-        android:onClick="onImageOrTextClick"/>
+        <ImageView
+            android:id="@+id/image3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="6dp"
+            android:background="@color/colorFlower"
+            android:clickable="true"
+            android:contentDescription="@string/item3"
+            android:cropToPadding="true"
+            android:onClick="onImageOrTextClick"
+            android:padding="30dp"
+            android:scaleType="fitXY"
+            android:tint="@color/colorWhite"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintLeft_toRightOf="@id/guideline4"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guideline"
+            app:srcCompat="@drawable/ic_baseline_broken_image_24px" />
 
             <TextView
                 android:layout_marginTop="1dp"
@@ -159,27 +158,27 @@
                 android:clickable="true"
                 android:onClick="onImageOrTextClick"/>
 
-    <ImageView
-        android:id="@+id/image4"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_gravity="center"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/colorGrass"
-        android:cropToPadding="true"
-        android:padding="30dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_icon_boxing"
-        android:tint="@color/colorWhite"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/guideline3"
-        app:layout_constraintTop_toBottomOf="@id/tv2"
-        android:contentDescription="@string/item4"
-        android:clickable="true"
-        android:onClick="onImageOrTextClick"/>
+        <ImageView
+            android:id="@+id/image4"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="3dp"
+            android:background="@color/colorGrass"
+            android:clickable="true"
+            android:contentDescription="@string/item4"
+            android:cropToPadding="true"
+            android:onClick="onImageOrTextClick"
+            android:padding="30dp"
+            android:scaleType="fitXY"
+            android:tint="@color/colorWhite"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/guideline3"
+            app:layout_constraintTop_toBottomOf="@id/tv2"
+            app:srcCompat="@drawable/ic_baseline_bug_report_24px" />
 
     <TextView
         android:layout_marginTop="1dp"
@@ -198,28 +197,27 @@
         android:onClick="onImageOrTextClick"/>
 
 
-    <ImageView
-        android:id="@+id/image5"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_gravity="center"
-        android:layout_marginLeft="6dp"
-        android:layout_marginRight="6dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/colorMint"
-        android:cropToPadding="true"
-        android:padding="30dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_icon_football"
-        android:tint="@color/colorWhite"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintLeft_toRightOf="@id/guideline3"
-
-        app:layout_constraintRight_toLeftOf="@id/guideline4"
-        app:layout_constraintTop_toBottomOf="@id/tv2"
-        android:contentDescription="@string/item5"
-        android:clickable="true"
-        android:onClick="onImageOrTextClick"/>
+        <ImageView
+            android:id="@+id/image5"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="3dp"
+            android:background="@color/colorMint"
+            android:clickable="true"
+            android:contentDescription="@string/item5"
+            android:cropToPadding="true"
+            android:onClick="onImageOrTextClick"
+            android:padding="30dp"
+            android:scaleType="fitXY"
+            android:tint="@color/colorWhite"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintLeft_toRightOf="@id/guideline3"
+            app:layout_constraintRight_toLeftOf="@id/guideline4"
+            app:layout_constraintTop_toBottomOf="@id/tv2"
+            app:srcCompat="@drawable/ic_baseline_record_voice_over_24px" />
 
     <TextView
         android:layout_marginTop="1dp"
@@ -239,27 +237,27 @@
         android:onClick="onImageOrTextClick"/>
 
 
-    <ImageView
-        android:id="@+id/image6"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_gravity="center"
-        android:layout_marginStart="6dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/colorAqua"
-        android:cropToPadding="true"
-        android:padding="30dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_icon_tenis"
-        android:tint="@color/colorWhite"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintLeft_toRightOf="@id/guideline4"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv2"
-        android:contentDescription="@string/item6"
-        android:clickable="true"
-        android:onClick="onImageOrTextClick"/>
+        <ImageView
+            android:id="@+id/image6"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="6dp"
+            android:background="@color/colorAqua"
+            android:clickable="true"
+            android:contentDescription="@string/item6"
+            android:cropToPadding="true"
+            android:onClick="onImageOrTextClick"
+            android:padding="30dp"
+            android:scaleType="fitXY"
+            android:tint="@color/colorWhite"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintLeft_toRightOf="@id/guideline4"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv2"
+            app:srcCompat="@drawable/ic_baseline_help_outline_24px" />
 
     <TextView
         android:layout_marginTop="1dp"
@@ -278,27 +276,27 @@
         android:clickable="true"
         android:onClick="onImageOrTextClick"/>
 
-    <ImageView
-        android:id="@+id/image7"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_gravity="center"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/colorBlueJeans"
-        android:cropToPadding="true"
-        android:padding="30dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_icon_lontenis"
-        android:tint="@color/colorWhite"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/guideline3"
-        app:layout_constraintTop_toBottomOf="@id/tv6"
-        android:contentDescription="@string/item7"
-        android:clickable="true"
-        android:onClick="onImageOrTextClick"/>
+        <ImageView
+            android:id="@+id/image7"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="3dp"
+            android:background="@color/colorBlueJeans"
+            android:clickable="true"
+            android:contentDescription="@string/item7"
+            android:cropToPadding="true"
+            android:onClick="onImageOrTextClick"
+            android:padding="30dp"
+            android:scaleType="fitXY"
+            android:tint="@color/colorWhite"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/guideline3"
+            app:layout_constraintTop_toBottomOf="@id/tv6"
+            app:srcCompat="@drawable/ic_baseline_add_24px" />
 
     <TextView
         android:layout_marginTop="1dp"
@@ -322,23 +320,23 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_gravity="center"
-            android:layout_marginLeft="6dp"
-            android:layout_marginRight="6dp"
+            android:layout_marginLeft="3dp"
             android:layout_marginTop="8dp"
+            android:layout_marginRight="3dp"
             android:background="@color/colorPinkRose"
+            android:clickable="true"
             android:contentDescription="@string/item8"
             android:cropToPadding="true"
+            android:onClick="onImageOrTextClick"
+
             android:padding="30dp"
             android:scaleType="fitXY"
-
-            android:src="@drawable/ic_icon_volleyball"
             android:tint="@color/colorWhite"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintLeft_toRightOf="@id/guideline3"
             app:layout_constraintRight_toLeftOf="@+id/guideline4"
             app:layout_constraintTop_toBottomOf="@id/tv5"
-            android:clickable="true"
-            android:onClick="onImageOrTextClick"/>
+            app:srcCompat="@drawable/ic_baseline_info_24px" />
 
     <TextView
         android:layout_marginTop="1dp"
@@ -357,43 +355,7 @@
         android:onClick="onImageOrTextClick"/>
 
 
-        <ImageView
-            android:id="@+id/image9"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="6dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="8dp"
-            android:background="@color/colorLavander"
-            android:clickable="true"
-            android:contentDescription="@string/item9"
-            android:cropToPadding="true"
-            android:onClick="onImageOrTextClick"
-            android:padding="30dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_icon_weight_lefting"
-            android:tint="@color/colorWhite"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintLeft_toRightOf="@id/guideline4"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv6" />
 
-    <TextView
-        android:layout_marginTop="1dp"
-        app:layout_constraintTop_toBottomOf="@id/image9"
-        app:layout_constraintLeft_toLeftOf="@id/image9"
-        app:layout_constraintRight_toRightOf="@id/image9"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/colorLavanderDark"
-        android:padding="8dp"
-        android:text="@string/item9"
-        android:textAlignment="center"
-        android:textColor="@color/colorWhite"
-        android:textSize="18sp"
-        android:clickable="true"
-        android:onClick="onImageOrTextClick"/>
 
 
     <android.support.constraint.Guideline

@@ -6,8 +6,8 @@ android {
         applicationId "com.cheesycode.meldhet"
         minSdkVersion 23
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        versionCode 6
+        versionName "1.05"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -33,5 +33,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:17.3.2'
     implementation 'com.github.jlmd:AnimatedCircleLoadingView:1.1.5@aar'
     implementation 'com.android.volley:volley:1.1.1'
+    implementation 'com.google.android.gms:play-services-location:15.0.1'
+
 }
 apply plugin: 'com.google.gms.google-services'
