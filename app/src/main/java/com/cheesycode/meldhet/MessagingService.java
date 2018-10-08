@@ -3,6 +3,7 @@ package com.cheesycode.meldhet;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.RemoteInput;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
@@ -22,7 +23,7 @@ public class MessagingService  extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         Intent intent = new Intent(this, ChatActivity.class);
         intent.putExtra("ISSUEID",remoteMessage.getData().get("issue"));
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 123456, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 123456, intent, PendingIntent.FLAG_ONE_SHOT);
 
         Log.d(TAG, "From: " + remoteMessage.getFrom());
         Log.d(TAG, "Notification Message Body: " + remoteMessage.getNotification().getBody());
@@ -31,7 +32,7 @@ public class MessagingService  extends FirebaseMessagingService {
                 .setSmallIcon(R.drawable.ic_outline_forum_24px)
                 .setLargeIcon(BitmapFactory.decodeResource(this.getResources(),R.drawable.ic_outline_forum_24px))
                 .setContentTitle(remoteMessage.getNotification().getTitle())
-                .setContentText(remoteMessage.getNotification().getBody())
+                .setContentText("De gemeente heeft gereageerd op uw melding.")
                 .setStyle(new NotificationCompat.BigTextStyle()
                         .bigText(remoteMessage.getNotification().getBody()))
                 .setContentIntent(pendingIntent)
@@ -43,7 +44,7 @@ public class MessagingService  extends FirebaseMessagingService {
 
     private void createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
+        // the Noti_communityficationChannel class is new and not in the support library
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = getString(R.string.channel_name);
             String description = getString(R.string.channel_description);
