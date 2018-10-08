@@ -1,10 +1,10 @@
 <resources>
     <string name="item1">Kapot</string>
-    <string name="item2">Gevaarlijk</string>
-    <string name="item3">Beschadigd</string>
-    <string name="item4">Smerig</string>
-    <string name="item5">Overlast</string>
-    <string name="item6">Onduidelijk</string>
+    <string name="item2">Verlichting</string>
+    <string name="item3">Bestrating</string>
+    <string name="item4">Groen</string>
+    <string name="item5">Smerig</string>
+    <string name="item6">Overlast</string>
     <string name="item7">Overig</string>
     <string name="item8">Uitleg</string>
     <string name="iets_gezien_meld_het_nu">Iets gezien? Meld het nu!</string>
@@ -12,4 +12,9 @@
     <string name="fotoinstructie">Maak een duidelijke foto van de situatie</string>
     <string name="channel_name">meldhet</string>
     <string name="channel_description">Melding van de gemeente over jouw lopende zaken</string>
+
+    <string name="title_activity_chat">ChatActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="item9">Chatten</string>
 </resources>

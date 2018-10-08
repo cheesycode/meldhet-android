@@ -20,15 +20,16 @@ public class MessagingService  extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        Intent intent = new Intent(this, IntroActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        Intent intent = new Intent(this, ChatActivity.class);
+        intent.putExtra("ISSUEID",remoteMessage.getData().get("issue"));
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 123456, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Log.d(TAG, "From: " + remoteMessage.getFrom());
         Log.d(TAG, "Notification Message Body: " + remoteMessage.getNotification().getBody());
         createNotificationChannel();
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_baseline_bug_report_24px)
-                .setLargeIcon(BitmapFactory.decodeResource(this.getResources(),R.drawable.ic_baseline_bug_report_24px))
+                .setSmallIcon(R.drawable.ic_outline_forum_24px)
+                .setLargeIcon(BitmapFactory.decodeResource(this.getResources(),R.drawable.ic_outline_forum_24px))
                 .setContentTitle(remoteMessage.getNotification().getTitle())
                 .setContentText(remoteMessage.getNotification().getBody())
                 .setStyle(new NotificationCompat.BigTextStyle()
@@ -60,7 +61,6 @@ public class MessagingService  extends FirebaseMessagingService {
         super.onNewToken(s);
         Log.d("NEW_TOKEN",s);
         getSharedPreferences("_", MODE_PRIVATE).edit().putString("fb", s).apply();
-        // TODO: Implement this method to send any registration to your app's servers.
         sendRegistrationToServer(s);
     }
 

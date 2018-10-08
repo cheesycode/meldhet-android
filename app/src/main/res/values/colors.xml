@@ -22,5 +22,7 @@
     <color name="colorAquaDark">#3BAFDA</color>
     <color name="colorPinkRose">#EC87C0</color>
     <color name="colorPinkRoseDark">#D770AD</color>
-<color name="titleBackground">#51C232</color>
+    <color name="titleBackground">#51C232</color>
+
+    <color name="black_overlay">#66000000</color>
 </resources>

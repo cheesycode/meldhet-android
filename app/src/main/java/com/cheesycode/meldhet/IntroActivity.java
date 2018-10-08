@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.transition.Fade;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -28,8 +29,7 @@ public class IntroActivity extends AppIntro2 {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-            setWindowFlag(this, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, false);
+        setWindowFlag(this, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, true);
             getWindow().setStatusBarColor(Color.TRANSPARENT);
 
         prefs = getSharedPreferences("com.cheesycode.MeldHet", MODE_PRIVATE);
@@ -37,7 +37,6 @@ public class IntroActivity extends AppIntro2 {
             Intent mainactivity = new Intent(IntroActivity.this, MainActivity.class);
             mainactivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             this.startActivity(mainactivity);
-            overridePendingTransition(R.anim.scale, R.anim.scale);
             finish();
         }
         askForPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 2);
