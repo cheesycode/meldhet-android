@@ -147,6 +147,7 @@ public class UploadActivity extends AppCompatActivity {
                             }
                         });
             } catch (FileNotFoundException e) {
+                Log.e("FileIOError",e.toString());
                 failedUpload();
             }
 
@@ -199,6 +200,7 @@ public class UploadActivity extends AppCompatActivity {
                             try {
                                 return mRequestBody == null ? null : mRequestBody.getBytes("utf-8");
                             } catch (UnsupportedEncodingException uee) {
+                                Log.d("ENCODING", uee.toString());
                                 failedUpload();
                                 throw new AuthFailureError();
                             }
@@ -217,7 +219,7 @@ public class UploadActivity extends AppCompatActivity {
 
                     requestQueue.add(stringRequest);
                 } catch (JSONException e) {
-                    e.printStackTrace();
+                    Log.d("JSON", e.toString());
                     failedUpload();
                 }
 
@@ -298,6 +300,7 @@ public class UploadActivity extends AppCompatActivity {
         try {
             off = Settings.Secure.getInt(getContentResolver(), Settings.Secure.LOCATION_MODE);
         } catch (Settings.SettingNotFoundException e) {
+            Log.d("GPS", e.toString());
             requestToTurnOnGps();
         }
         if(off==0){

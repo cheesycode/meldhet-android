@@ -253,6 +253,7 @@ public class ChatActivity extends FragmentActivity implements OnMapReadyCallback
             }
         }
         catch (Exception e){
+            Log.i("NO MESSAGE", e.toString());
             Toast.makeText(this, "Er konden geen lopende zaken worden gevonden", Toast.LENGTH_SHORT).show();
         }
     }
@@ -294,6 +295,7 @@ public class ChatActivity extends FragmentActivity implements OnMapReadyCallback
                     try {
                         return mRequestBody == null ? null : mRequestBody.getBytes("utf-8");
                     } catch (UnsupportedEncodingException uee) {
+                        Log.d("ENCODING", uee.toString());
                         throw new AuthFailureError();
                     }
                 }
@@ -311,6 +313,7 @@ public class ChatActivity extends FragmentActivity implements OnMapReadyCallback
 
             requestQueue.add(stringRequest);
         } catch (JSONException e) {
+            Log.d("JSON", e.toString());
             e.printStackTrace();
         }
 

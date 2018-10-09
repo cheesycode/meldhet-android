@@ -78,6 +78,7 @@ public class MyReceiver extends BroadcastReceiver {
                             try {
                                 return mRequestBody == null ? null : mRequestBody.getBytes("utf-8");
                             } catch (UnsupportedEncodingException uee) {
+                                Log.d("ENCODING", uee.toString());
                                 throw new AuthFailureError();
                             }
                         }
@@ -95,6 +96,7 @@ public class MyReceiver extends BroadcastReceiver {
 
                     requestQueue.add(stringRequest);
                 } catch (JSONException e) {
+                    Log.d("JSON", e.toString());
                     e.printStackTrace();
                 }
         }
