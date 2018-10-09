@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,13 +17,13 @@ import com.github.paolorotolo.appintro.AppIntroFragment;
 import com.github.paolorotolo.appintro.model.SliderPage;
 
 public class IntroActivity extends AppIntro2 {
-
+    public static boolean isInstantApp =false;
     SharedPreferences prefs = null;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setWindowFlag(this, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, true);
-            getWindow().setStatusBarColor(Color.TRANSPARENT);
+        getWindow().setStatusBarColor(Color.TRANSPARENT);
 
         prefs = getSharedPreferences("com.cheesycode.MeldHet", MODE_PRIVATE);
         if (!prefs.getBoolean("firstrun", true)) {
@@ -61,7 +62,12 @@ public class IntroActivity extends AppIntro2 {
         setSwipeLock(false);
 
 
-
+        Intent appLinkIntent = getIntent();
+        String appLinkAction = appLinkIntent.getAction();
+        Uri appLinkData = appLinkIntent.getData();
+        if(appLinkAction != null){
+            isInstantApp = true;
+        }
     }
     public static void setWindowFlag(Activity activity, final int bits, boolean on) {
         Window win = activity.getWindow();

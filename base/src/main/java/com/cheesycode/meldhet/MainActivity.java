@@ -32,7 +32,6 @@ import java.util.Date;
 import java.util.Locale;
 
 import static com.cheesycode.meldhet.IntroActivity.setWindowFlag;
-import static com.google.android.instantapps.InstantApps.isInstantApp;
 
 public class MainActivity extends AppCompatActivity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -47,6 +46,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if(IntroActivity.isInstantApp){
+                Toast.makeText(this, "WELKOM BIJ ONZE INSTANT APP", Toast.LENGTH_SHORT);
+            }
+
             //TODO REPLACE WHEN ANDROID SDK IS FIXED
             try {
                  createImageFile();

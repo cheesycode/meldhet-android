@@ -1,0 +1,9 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.cheesycode.meldhet",
+    "sha256_cert_fingerprints":
+    ["6F:14:13:B3:D0:DD:27:0B:A8:64:22:F2:0F:41:57:69:88:EA:A3:66:63:1D:F8:F1:E2:07:4D:62:F5:6A:F4:BF"]
+  }
+}]
