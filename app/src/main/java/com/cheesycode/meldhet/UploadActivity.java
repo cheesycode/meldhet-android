@@ -2,26 +2,19 @@ package com.cheesycode.meldhet;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.location.Location;
-import android.location.LocationProvider;
-import android.net.Uri;
-import android.os.Handler;
+import android.os.Bundle;
 import android.os.Looper;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.transition.Fade;
-import android.transition.Slide;
 import android.transition.Transition;
 import android.transition.TransitionManager;
 import android.util.Log;
@@ -29,8 +22,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,12 +31,11 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.cheesycode.meldhet.helper.ConfigHelper;
 import com.github.jlmd.animatedcircleloadingview.AnimatedCircleLoadingView;
-import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
@@ -58,7 +48,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.cheesycode.meldhet.helper.ConfigHelper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -67,9 +56,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.UUID;
 
@@ -77,7 +64,6 @@ import static com.cheesycode.meldhet.IntroActivity.setWindowFlag;
 import static com.google.android.gms.location.LocationServices.getFusedLocationProviderClient;
 
 public class UploadActivity extends AppCompatActivity {
-    //Firebase
     FirebaseStorage storage;
     StorageReference storageReference;
     AnimatedCircleLoadingView animatedCircleLoadingView;
@@ -85,25 +71,22 @@ public class UploadActivity extends AppCompatActivity {
     private String imagePath;
     private static Location location = null;
     private String issueType;
-    private LocationRequest mLocationRequest;
     private ViewGroup transitionsContainer;
     private TextView title;
     private TextView message;
     private Button button;
-    private long UPDATE_INTERVAL = 4 * 1000;
-    private long FASTEST_INTERVAL = 500;
     private boolean uploadDone = false;
-    private int gpstrycounter = 3;
+    private int gpstrycounter = 2;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload);
-        transitionsContainer = (ViewGroup) findViewById(R.id.uploadContainer);
-        title = (TextView) transitionsContainer.findViewById(R.id.thankYou);
-        message = (TextView) transitionsContainer.findViewById(R.id.explanation);
-        button = (Button) transitionsContainer.findViewById(R.id.again);
+        transitionsContainer = findViewById(R.id.uploadContainer);
+        title = transitionsContainer.findViewById(R.id.thankYou);
+        message = transitionsContainer.findViewById(R.id.explanation);
+        button = transitionsContainer.findViewById(R.id.again);
 
         setWindowFlag(this, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, true);
         animatedCircleLoadingView = findViewById(R.id.circle_loading_view);
@@ -198,7 +181,7 @@ public class UploadActivity extends AppCompatActivity {
                             message.setVisibility(View.VISIBLE);
                             button.setVisibility(View.VISIBLE);
                             final File file = new File(imagePath);
-                            file.delete();
+                            if(!file.delete()){Log.e("FILEIO", "File not deleted ");}
                         }
                     }, new Response.ErrorListener() {
                         @Override
@@ -217,17 +200,18 @@ public class UploadActivity extends AppCompatActivity {
                                 return mRequestBody == null ? null : mRequestBody.getBytes("utf-8");
                             } catch (UnsupportedEncodingException uee) {
                                 failedUpload();
-                                return null;
+                                throw new AuthFailureError();
                             }
                         }
 
                         @Override
                         protected Response<String> parseNetworkResponse(NetworkResponse response) {
-                            String responseString = "";
+                            String responseString;
                             if (response != null) {
                                 responseString = String.valueOf(response.statusCode);
+                                return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
                             }
-                            return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
+                            throw new NullPointerException();
                         }
                     };
 
@@ -243,7 +227,7 @@ public class UploadActivity extends AppCompatActivity {
         @Override
         public void onLocationResult(LocationResult locationResult) {
             onLocationChanged(locationResult.getLastLocation());
-        };
+        }
 
     };
 
@@ -253,13 +237,12 @@ public class UploadActivity extends AppCompatActivity {
         transition.setStartDelay(2500);
         transition.setDuration(2000);
         TransitionManager.beginDelayedTransition(transitionsContainer, transition);
-        title.setText("Oh Nee!!!");
+        title.setText(getString(R.string.failuretitle));
         title.setVisibility(View.VISIBLE);
-        message.setText("Er is iets mis gegaan, maar wees niet bang. We zorgen dat alles alsnog verstuurd wordt als er weer verbinding is.");
+        message.setText(getString(R.string.failuremessage));
         message.setVisibility(View.VISIBLE);
         button.setVisibility(View.VISIBLE);
         getFusedLocationProviderClient(this).removeLocationUpdates(mLocationCallback);
-
     }
 
     public void onLocationChanged(Location location) {
@@ -267,9 +250,10 @@ public class UploadActivity extends AppCompatActivity {
             failedUpload();
         }
         gpstrycounter--;
-        if(this.location==null){this.location = location;}
-        if(location.getAccuracy() < this.location.getAccuracy()){
-            this.location = location;
+        if(UploadActivity.location == null){
+            UploadActivity.location = location;}
+        if(location.getAccuracy() < UploadActivity.location.getAccuracy()){
+            UploadActivity.location = location;
         }
         if(location.getAccuracy() < 13 ){
             if(uploadDone) {
@@ -287,10 +271,10 @@ public class UploadActivity extends AppCompatActivity {
 
     protected void requestToTurnOnGps(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("GPS Inschakelen?");
-        builder.setMessage("De GPS moet ingeschakeld zijn zodat we de gemeente de exacte locatie kunnen doorgeven.");
+        builder.setTitle(getString(R.string.gpstitle));
+        builder.setMessage(getString(R.string.gpsmessage));
 
-        builder.setPositiveButton("Inschakelen", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getString(R.string.enable), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent onGPS = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
@@ -298,7 +282,7 @@ public class UploadActivity extends AppCompatActivity {
                 startLocationUpdates();
             }
         });
-        builder.setNegativeButton("Annuleren", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(getString(R.string.disable), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
@@ -319,9 +303,11 @@ public class UploadActivity extends AppCompatActivity {
         if(off==0){
             requestToTurnOnGps();
         }
-        mLocationRequest = new LocationRequest();
+        LocationRequest mLocationRequest = new LocationRequest();
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        long UPDATE_INTERVAL = 4 * 1000;
         mLocationRequest.setInterval(UPDATE_INTERVAL);
+        long FASTEST_INTERVAL = 500;
         mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
 
         LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder();
@@ -340,7 +326,7 @@ public class UploadActivity extends AppCompatActivity {
 
     public void newIssue(View v){
         if(v == null){
-            Toast.makeText(this,"Helaas kunnen we geen meldingen maken zonder GPS. Probeer het later nogmaals", Toast.LENGTH_LONG).show();
+            Toast.makeText(this,getString(R.string.nogps), Toast.LENGTH_LONG).show();
         }
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);

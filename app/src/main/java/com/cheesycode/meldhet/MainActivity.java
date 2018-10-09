@@ -1,42 +1,29 @@
 package com.cheesycode.meldhet;
 
-import android.Manifest;
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.text.InputType;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import static com.cheesycode.meldhet.IntroActivity.setWindowFlag;
 
@@ -44,17 +31,14 @@ public class MainActivity extends AppCompatActivity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int REQUEST_TAKE_PHOTO = 1;
     SharedPreferences prefs = null;
-    private String customIssue = "";
 
     private String mCurrentPhotoPath;
     private String currentIssueType;
-    private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        imageView = findViewById(R.id.titleimage);
         Intent intent = getIntent();
         setWindowFlag(this, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, true);
 
@@ -65,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
         onImageOrTextClick((Object) v);
     }
     private void onImageOrTextClick(Object view) {
-
         if(view instanceof TextView){
             currentIssueType = ((TextView) view).getText().toString();
         }
@@ -77,22 +60,22 @@ public class MainActivity extends AppCompatActivity {
             currentIssueType = view.toString();
         }
 
-        if(currentIssueType == getResources().getString(R.string.item8)){
+        if(currentIssueType.equals(getResources().getString(R.string.item8))){
             prefs = getSharedPreferences("com.cheesycode.MeldHet", MODE_PRIVATE);
-            prefs.edit().putBoolean("firstrun", true).commit();
+            prefs.edit().putBoolean("firstrun", true).apply();
 
             Intent i = new Intent(this,IntroActivity.class);
             this.startActivity(i);
             return;
         }
 
-        if(currentIssueType == getResources().getString(R.string.item9)){
+        if(currentIssueType.equals(getResources().getString(R.string.item9))){
             Intent i = new Intent(this,ChatActivity.class);
             this.startActivity(i);
             return;
         }
 
-        if(currentIssueType == getResources().getString(R.string.item7)){
+        if(currentIssueType.equals(getResources().getString(R.string.item7))){
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Wat voor probleem wil je melden");
 
@@ -157,19 +140,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
     private File createImageFile() throws IOException {
-        // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.GERMAN).format(new Date());
         String imageFileName = "MeldingOp" + timeStamp + "_";
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
-        );
-
-        // Save a file: path for use with ACTION_VIEW intents
+                imageFileName,
+                ".jpg",
+                storageDir);
         mCurrentPhotoPath = image.getAbsolutePath();
-
         return image;
     }
 }

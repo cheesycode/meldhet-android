@@ -13,8 +13,9 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <!--<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />-->
-
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/launcher_icon_test"
@@ -25,7 +26,8 @@
             android:name=".MainActivity"
             android:exported="true"
             android:label="Main Activity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -37,11 +39,11 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".IntroActivity"
-            android:screenOrientation="portrait" >
+        <activity
+            android:name=".IntroActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -54,34 +56,34 @@
         <service android:name=".MessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </service>
 
         <meta-data
-            android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/ic_outline_forum_24px" />
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_color"
-            android:resource="@color/colorAccent" />
-        <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".UploadActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation
-                                  |screenSize|screenLayout|smallestScreenSize|uiMode"
+        <activity
+            android:name=".UploadActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ChatActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
             android:label="@string/title_activity_chat"
-            android:windowSoftInputMode="adjustResize|adjustPan"
-            android:configChanges="keyboard|keyboardHidden|orientation
-                                  |screenSize|screenLayout|smallestScreenSize|uiMode"
+            android:screenOrientation="portrait"
             android:theme="@style/FullscreenTheme"
-            android:screenOrientation="portrait" ></activity>
+            android:windowSoftInputMode="adjustResize|adjustPan" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAjRVNCEB6qWwmuCPTzJlWkBJMXBlofWY8"/>
+            android:value="AIzaSyAjRVNCEB6qWwmuCPTzJlWkBJMXBlofWY8" />
+
+        <receiver
+            android:name=".MyReceiver"
+            android:enabled="true"
+            android:exported="false"></receiver>
     </application>
 
 </manifest>

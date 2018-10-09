@@ -1,38 +1,20 @@
 package com.cheesycode.meldhet;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.location.Location;
-import android.os.Message;
+import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NotificationManagerCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.os.Handler;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.transition.Fade;
-import android.transition.Slide;
-import android.transition.Transition;
 import android.transition.TransitionManager;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -45,7 +27,6 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.cheesycode.meldhet.helper.ConfigHelper;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -62,10 +43,8 @@ import com.google.gson.reflect.TypeToken;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -78,16 +57,13 @@ public class ChatActivity extends FragmentActivity implements OnMapReadyCallback
     private RecyclerView chatcontainer;
     private ConstraintLayout chatView;
     private Map<MarkerOptions, String> markers;
-    private String[] tests = new String[]{"Test1", "Test2", "Test3","Test1", "Test2", "Test3","Test1", "Test2", "Test3","Test1", "Test2", "Test3","Test1", "Test2", "Test3","Test1", "Test2", "Test3","Test1", "Test2", "Test3","Test1", "Test2", "Test3","Test1", "Test2", "Test3","Test1", "Test2", "Test3","Test1", "Test2", "Test3","Test1", "Test2", "Test3","Test1", "Test2", "Test3","Test1", "Test2", "Test3"};
     private EditText newMessage;
     private Button send;
     private ChatAdapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
-    private CardView cardView;
     private String issueidfrompush;
     private static MarkerOptions pushMarker = null;
     private ArrayList<Marker> marker;
-    public static Context context;
+    @SuppressLint("StaticFieldLeak")
     private String lastRecipient;
     private String issue = "";
     private ConstraintSet mapFull;
@@ -95,29 +71,27 @@ public class ChatActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        context = this;
         super.onCreate(savedInstanceState);
 
-        Toast.makeText(this, "Een ogenblikje geduld alstublieft, wij halen nu uw meldingen op", Toast.LENGTH_SHORT).show();
-        getRequest(ConfigHelper.getConfigValue(this, "api_url") + "get?id=" + MessagingService.getToken(this), new Response.Listener<String>() {
+        Toast.makeText(this, getString(R.string.issueloader), Toast.LENGTH_SHORT).show();
+        getRequest(ConfigHelper.getConfigValue(this, getString(R.string.apiurl)) + getString(R.string.get) + MessagingService.getToken(this), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 processIssueList(response);
             }
         });
         setContentView(R.layout.activity_chat);
-        marker = new ArrayList<Marker>();
-        issueidfrompush = this.getIntent().getStringExtra("ISSUEID");
+        marker = new ArrayList<>();
+        issueidfrompush = this.getIntent().getStringExtra(getString(R.string.issueid));
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
         notificationManager.cancelAll();
 
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         send = findViewById(R.id.sendnewmessage);
-        cardView = findViewById(R.id.card_view);
         newMessage = findViewById(R.id.newmessagebox);
         chatView =  findViewById(R.id.chatView);
         chatcontainer = findViewById(R.id.chatContainer);
-        mLayoutManager = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         chatcontainer.setLayoutManager(mLayoutManager);
         mapFull = new ConstraintSet();
         mapFull.clone(chatView);
@@ -126,6 +100,7 @@ public class ChatActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
 
+        assert mapFragment != null;
         mapFragment.getMapAsync(this);
 
     }
@@ -222,10 +197,10 @@ public class ChatActivity extends FragmentActivity implements OnMapReadyCallback
                     mapFull.applyTo(chatView);
                     send.setVisibility(View.GONE);
                     newMessage.setVisibility(View.GONE);
-                    Toast.makeText(ChatActivity.this, "U kunt pas berichten versturen nadat de gemeente de zaak geopend heeft.", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(ChatActivity.this, "U kunt pas berichten versturen nadat de gemeente de zaak geopend heeft.", Toast.LENGTH_LONG).show();
 
                 }
-                else{Toast.makeText(ChatActivity.this, "Er zijn nog geen meldingen gevonden", Toast.LENGTH_LONG).show();}
+//                else{Toast.makeText(ChatActivity.this, "Er zijn nog geen meldingen gevonden", Toast.LENGTH_LONG).show();}
 
             }
         });
@@ -238,7 +213,7 @@ public class ChatActivity extends FragmentActivity implements OnMapReadyCallback
             Gson gson = new Gson();
             List<Issue> issueList = gson.fromJson(response, new TypeToken<List<Issue>>() {
             }.getType());
-            markers = new HashMap<MarkerOptions, String>();
+            markers = new HashMap<>();
             for (Issue i : issueList) {
                 if (i.id.equals(issueidfrompush)) {
                     ChatActivity.pushMarker = new MarkerOptions().title("#" + i.tag).position(new LatLng(i.lat, i.lon));
@@ -254,27 +229,31 @@ public class ChatActivity extends FragmentActivity implements OnMapReadyCallback
             }
         }
         catch(Exception e){
-            Log.d("FUCKUP","SOMETHING WONG WITH MAP. CHINA PEOPLE SHOULD WORK HARDER");
+            Log.d("UploadException",e.toString());
         }
     }
 
     private void processIssueList(){
-        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+        try {
+            LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
-        for (MarkerOptions mo : markers.keySet()) {
-            builder.include(mo.getPosition());
-            marker.add(mMap.addMarker(mo));
+            for (MarkerOptions mo : markers.keySet()) {
+                builder.include(mo.getPosition());
+                marker.add(mMap.addMarker(mo));
+            }
+            LatLngBounds bounds = builder.build();
+            int padding = 200;
+
+            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
+
+            if (ChatActivity.pushMarker != null) {
+                clickMarkerOptions(ChatActivity.pushMarker.getPosition());
+            } else {
+                mMap.animateCamera(cu);
+            }
         }
-        LatLngBounds bounds = builder.build();
-        int padding = 200;
-
-        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
-
-        if (ChatActivity.pushMarker != null) {
-            clickMarkerOptions(ChatActivity.pushMarker.getPosition());
-        }
-        else {
-            mMap.animateCamera(cu);
+        catch (Exception e){
+            Toast.makeText(this, "Er konden geen lopende zaken worden gevonden", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -315,17 +294,18 @@ public class ChatActivity extends FragmentActivity implements OnMapReadyCallback
                     try {
                         return mRequestBody == null ? null : mRequestBody.getBytes("utf-8");
                     } catch (UnsupportedEncodingException uee) {
-                        return null;
+                        throw new AuthFailureError();
                     }
                 }
 
                 @Override
                 protected Response<String> parseNetworkResponse(NetworkResponse response) {
-                    String responseString = "";
+                    String responseString;
                     if (response != null) {
                         responseString = String.valueOf(response.statusCode);
+                        return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
                     }
-                    return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
+                    return Response.error(new VolleyError());
                 }
             };
 

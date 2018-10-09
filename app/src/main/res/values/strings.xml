@@ -18,4 +18,27 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="item9">Chatten</string>
     <string name="reply_label">Beantwoorden</string>
+    <string name="replied">Bedankt, uw reactie is verstuurd</string>
+    <string name="issueloader">Een ogenblikje geduld alstublieft, wij halen nu uw meldingen op</string>
+    <string name="issueid">ISSUEID</string>
+    <string name="apiurl">api_url</string>
+    <string name="get">get?id=</string>
+    <string name="missue">issue</string>
+    <string name="msender">sender</string>
+    <string name="mbody">body</string>
+    <string name="mid">id</string>
+    <string name="reply">Beantwoorden...</string>
+    <string name="newmessagefrom">Nieuw bericht van</string>
+    <string name="firebase">fb</string>
+    <string name="messageSend">Uw bericht is verstuurd</string>
+    <string name="messageurl">messages_url</string>
+    <string name="create">create/</string>
+    <string name="mrecipient">recipient</string>
+    <string name="failuremessage">Er is iets mis gegaan, maar wees niet bang. We zorgen dat alles alsnog verstuurd wordt als er weer verbinding is.</string>
+    <string name="failuretitle">Oh Nee!!!</string>
+    <string name="gpstitle">GPS Inschakelen?</string>
+    <string name="gpsmessage">De GPS moet ingeschakeld zijn zodat we de gemeente de exacte locatie kunnen doorgeven.</string>
+    <string name="enable">Inschakelen</string>
+    <string name="disable">Annuleren</string>
+    <string name="nogps">Helaas kunnen we geen meldingen maken zonder GPS. Probeer het later nogmaals</string>
 </resources>
