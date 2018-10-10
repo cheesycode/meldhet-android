@@ -50,7 +50,7 @@ public class MyReceiver extends BroadcastReceiver {
                     RequestQueue requestQueue = Volley.newRequestQueue(context);
 
                     JSONObject jsonBody = new JSONObject();
-                    jsonBody.put(context.getString(R.string.mid), MessagingService.getToken(context));
+                    jsonBody.put(context.getString(R.string.msender), MessagingService.getToken(context));
                     jsonBody.put(context.getString(R.string.missue), issue);
                     jsonBody.put(context.getString(R.string.mbody), message);
                     jsonBody.put(context.getString(R.string.mrecipient),lastRecipient );
@@ -60,12 +60,13 @@ public class MyReceiver extends BroadcastReceiver {
                     StringRequest stringRequest = new StringRequest(Request.Method.POST, postUrl, new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
-
+                            Log.d("Awesome", response);
                         }
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             Log.e("BACKGROUND", error.toString());
+                            error.printStackTrace();
                         }
                     }) {
                         @Override

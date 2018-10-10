@@ -50,9 +50,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
             </intent-filter>
 
-            <meta-data
-                android:name="default-url"
-                android:value="https://play.google.com/store/apps/details?id=com.cheesycode.meldhet&amp;launch=true" />
+
             <meta-data
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
@@ -133,7 +131,7 @@
         <receiver
             android:name=".MyReceiver"
             android:enabled="true"
-            android:exported="false"></receiver>
+            android:exported="false"/>
     </application>
 
 </manifest>

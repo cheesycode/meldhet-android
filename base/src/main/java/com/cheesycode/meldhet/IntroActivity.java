@@ -2,13 +2,20 @@ package com.cheesycode.meldhet;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -38,36 +45,37 @@ public class IntroActivity extends AppIntro2 {
         SliderPage sliderPage = new SliderPage();
         sliderPage.setTitle("Welkom");
         sliderPage.setDescription("Leuk dat je onze app gebruikt om de wereld groener te maken");
-        sliderPage.setImageDrawable(R.drawable.ic_baseline_nature_people_24px);
+
+        sliderPage.setImageDrawable(R.drawable.banner);
         sliderPage.setBgColor(getColor(R.color.colorAquaDark));
         addSlide(AppIntroFragment.newInstance(sliderPage));
         setSwipeLock(false);
         sliderPage.setTitle("Vuil of Kapot");
         sliderPage.setDescription("Elke dag loop jij langs honderden, misschien wel duizenden dingen die kapot, vies, onduidelijk of gewoon verkeerd zijn.");
-        sliderPage.setImageDrawable(R.drawable.ic_dog_poo);
+        sliderPage.setImageDrawable(R.drawable.trash);
         sliderPage.setBgColor(getColor(R.color.colorGrapeFruitDark));
         addSlide(AppIntroFragment.newInstance(sliderPage));
         setSwipeLock(false);
         sliderPage.setTitle("Doe er wat aan");
         sliderPage.setDescription("Met deze app. Hiermee maak je namelijk eenvoudig melding van dat wat jouw stoort,");
-        sliderPage.setImageDrawable(R.drawable.ic_baseline_record_voice_over_24px);
+        sliderPage.setImageDrawable(R.drawable.city_hall_1);
         sliderPage.setBgColor(getColor(R.color.colorLavanderDark));
         addSlide(AppIntroFragment.newInstance(sliderPage));
         setSwipeLock(false);
         sliderPage.setTitle("Klik op een Categorie");
         sliderPage.setDescription("En maak een foto. Wij doen de rest, wij brengen de gemeente op de hoogte en zorgen dat alles geregeld moet worden. ");
-        sliderPage.setImageDrawable(R.drawable.ic_checked_mark);
+        sliderPage.setImageDrawable(R.drawable.nature);
         sliderPage.setBgColor(getColor(R.color.colorGrassDark));
         addSlide(AppIntroFragment.newInstance(sliderPage));
         setSwipeLock(false);
 
 
-        Intent appLinkIntent = getIntent();
-        String appLinkAction = appLinkIntent.getAction();
-        Uri appLinkData = appLinkIntent.getData();
-        if(appLinkAction != null){
-            isInstantApp = true;
-        }
+//        Intent appLinkIntent = getIntent();
+//        String appLinkAction = appLinkIntent.getAction();
+//        Uri appLinkData = appLinkIntent.getData();
+//        if(appLinkAction != null){
+//            isInstantApp = true;
+//        }
     }
     public static void setWindowFlag(Activity activity, final int bits, boolean on) {
         Window win = activity.getWindow();
@@ -78,6 +86,17 @@ public class IntroActivity extends AppIntro2 {
             winParams.flags &= ~bits;
         }
         win.setAttributes(winParams);
+    }
+
+    public static Bitmap getBitmapFromVectorDrawable(Context context, int drawableId) {
+        Drawable drawable = ContextCompat.getDrawable(context, drawableId);
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+
+        return bitmap;
     }
 
 

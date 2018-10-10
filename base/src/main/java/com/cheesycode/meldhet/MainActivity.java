@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        if(currentIssueType.equals(getResources().getString(R.string.item9))){
+        if(currentIssueType == getResources().getString(R.string.item9)){
             Intent i = new Intent(this,ChatActivity.class);
             this.startActivity(i);
             return;
@@ -146,19 +146,27 @@ public class MainActivity extends AppCompatActivity {
                         photoFile);
                 Toast.makeText(this, R.string.fotoinstructie , Toast.LENGTH_LONG).show();
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
             }
-            startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+            else{
+                Intent takePictureIntentNoStorage = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(takePictureIntentNoStorage, 34);
+            }
         }
     }
 
         protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-            if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-                Intent intent = new Intent(this, UploadActivity.class);
+            Intent intent = new Intent(this, UploadActivity.class);
+            intent.putExtra("issueType", currentIssueType);
+            if (requestCode == REQUEST_IMAGE_CAPTURE ) {
                 intent.putExtra("filepath", mCurrentPhotoPath);
-                intent.putExtra("issueType", currentIssueType);
+            }
+            else if(requestCode==34 ){
                 Bundle extras = data.getExtras();
                 Bitmap imageBitmap = (Bitmap) extras.get("data");
                 intent.putExtra("file", imageBitmap);
+            }
+            if( resultCode == RESULT_OK){
                 this.startActivity(intent);
             }
         }

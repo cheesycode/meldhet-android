@@ -148,9 +148,9 @@ public class ChatActivity extends FragmentActivity implements OnMapReadyCallback
                             constraintSet.connect(R.id.chatContainer,ConstraintSet.TOP,R.id.guideline2,ConstraintSet.BOTTOM,0);
 
                             TransitionManager.beginDelayedTransition(chatView);
+                            constraintSet.applyTo(chatView);
                             send.setVisibility(View.VISIBLE);
                             newMessage.setVisibility(View.VISIBLE);
-                            constraintSet.applyTo(chatView);
                         }
                         mAdapter = new ChatAdapter(messages);
                         lastRecipient = messages.get(0).sender;
@@ -197,14 +197,9 @@ public class ChatActivity extends FragmentActivity implements OnMapReadyCallback
                     mapFull.applyTo(chatView);
                     send.setVisibility(View.GONE);
                     newMessage.setVisibility(View.GONE);
-//                    Toast.makeText(ChatActivity.this, "U kunt pas berichten versturen nadat de gemeente de zaak geopend heeft.", Toast.LENGTH_LONG).show();
-
                 }
-//                else{Toast.makeText(ChatActivity.this, "Er zijn nog geen meldingen gevonden", Toast.LENGTH_LONG).show();}
-
             }
         });
-// Add the request to the RequestQueue.
         requestQueue.add(stringRequest);
     }
 
@@ -216,12 +211,29 @@ public class ChatActivity extends FragmentActivity implements OnMapReadyCallback
             markers = new HashMap<>();
             for (Issue i : issueList) {
                 if (i.id.equals(issueidfrompush)) {
-                    ChatActivity.pushMarker = new MarkerOptions().title("#" + i.tag).position(new LatLng(i.lat, i.lon));
+                    ChatActivity.pushMarker = new MarkerOptions().title("#" + i.tag).snippet(i.status).position(new LatLng(i.lat, i.lon));
                     markers.put(new MarkerOptions().title("#" + i.tag).position(new LatLng(i.lat, i.lon)), i.id);
                 }
                 else {
-                    markers.put(new MarkerOptions().title("#" + i.tag).icon(BitmapDescriptorFactory
-                            .defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).position(new LatLng(i.lat, i.lon)), i.id);
+                    switch (i.status) {
+                        case "open":
+                            markers.put(new MarkerOptions().title("#" + i.tag).snippet(i.status).icon(BitmapDescriptorFactory
+                                .defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).position(new LatLng(i.lat, i.lon)), i.id);
+                        break;
+
+                        case "in progress":
+                            markers.put(new MarkerOptions().title("#" + i.tag).snippet(i.status).icon(BitmapDescriptorFactory
+                                    .defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)).position(new LatLng(i.lat, i.lon)), i.id);
+                            break;
+                        case "awaiting response":
+                            markers.put(new MarkerOptions().title("#" + i.tag).snippet(i.status).icon(BitmapDescriptorFactory
+                                    .defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)).position(new LatLng(i.lat, i.lon)), i.id);
+                            break;
+                            default:
+                                markers.put(new MarkerOptions().title("#" + i.tag).snippet(i.status).icon(BitmapDescriptorFactory
+                                        .defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).position(new LatLng(i.lat, i.lon)), i.id);
+                                break;
+                    }
                 }
             }
             if (mMap != null) {

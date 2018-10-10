@@ -41,4 +41,6 @@
     <string name="enable">Inschakelen</string>
     <string name="disable">Annuleren</string>
     <string name="nogps">Helaas kunnen we geen meldingen maken zonder GPS. Probeer het later nogmaals</string>
+    <string name="bericht">Bericht......</string>
+    <string name="versturen">Versturen</string>
 </resources>
