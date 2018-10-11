@@ -24,6 +24,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import java.util.Timer;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -59,6 +60,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.util.TimerTask;
 import java.util.UUID;
 
 import static com.cheesycode.meldhet.IntroActivity.setWindowFlag;
@@ -77,7 +79,7 @@ public class UploadActivity extends AppCompatActivity {
     private TextView message;
     private Button button;
     private boolean uploadDone = false;
-    private int gpstrycounter = 2;
+    private int gpstrycounter = 0;
 
 
     @Override
@@ -98,7 +100,18 @@ public class UploadActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String filepath = intent.getStringExtra("filepath");
         issueType = intent.getStringExtra("issueType");
-
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                   failedUpload();
+                    }
+                });
+            }
+        }, 10*1000);
         if (!skipMethod) {
             if(filepath!= null) {
                 uploadImage(filepath);
@@ -163,7 +176,7 @@ public class UploadActivity extends AppCompatActivity {
                 .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                        double progress = (99.0 * taskSnapshot.getBytesTransferred() / taskSnapshot
+                        double progress = (95.0 * taskSnapshot.getBytesTransferred() / taskSnapshot
                                 .getTotalByteCount());
                         animatedCircleLoadingView.setPercent((int) Math.round(progress));
                     }
@@ -250,32 +263,35 @@ public class UploadActivity extends AppCompatActivity {
     };
 
     public void failedUpload(){
-        animatedCircleLoadingView.stopFailure();
-        Transition transition = new Fade(Fade.IN);
-        transition.setStartDelay(2500);
-        transition.setDuration(2000);
-        TransitionManager.beginDelayedTransition(transitionsContainer, transition);
-        title.setText(getString(R.string.failuretitle));
-        title.setVisibility(View.VISIBLE);
-        message.setText(getString(R.string.failuremessage));
-        message.setVisibility(View.VISIBLE);
-        button.setVisibility(View.VISIBLE);
-        getFusedLocationProviderClient(this).removeLocationUpdates(mLocationCallback);
+            animatedCircleLoadingView.stopFailure();
+            Transition transition = new Fade(Fade.IN);
+            transition.setStartDelay(2500);
+            transition.setDuration(2000);
+            TransitionManager.beginDelayedTransition(transitionsContainer, transition);
+            title.setText(getString(R.string.failuretitle));
+            title.setVisibility(View.VISIBLE);
+            message.setText(getString(R.string.failuremessage));
+            message.setVisibility(View.VISIBLE);
+            button.setVisibility(View.VISIBLE);
+            getFusedLocationProviderClient(this).removeLocationUpdates(mLocationCallback);
+
     }
 
     public void onLocationChanged(Location location) {
-        if(gpstrycounter < 0){
+        if(gpstrycounter > 5){
             failedUpload();
         }
-        gpstrycounter--;
+        gpstrycounter++;
+        animatedCircleLoadingView.setPercent(95 + gpstrycounter);
         if(UploadActivity.location == null){
             UploadActivity.location = location;}
         if(location.getAccuracy() < UploadActivity.location.getAccuracy()){
             UploadActivity.location = location;
         }
-        if(location.getAccuracy() < 13 ){
+        if(location.getAccuracy() < 15 && gpstrycounter >1){
             if(uploadDone) {
                 Volleypostfunc();
+                animatedCircleLoadingView.setPercent(100);
                 getFusedLocationProviderClient(this).removeLocationUpdates(mLocationCallback);
             }
         }
@@ -324,10 +340,8 @@ public class UploadActivity extends AppCompatActivity {
         }
         LocationRequest mLocationRequest = new LocationRequest();
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        long UPDATE_INTERVAL = 4 * 1000;
-        mLocationRequest.setInterval(UPDATE_INTERVAL);
-        long FASTEST_INTERVAL = 500;
-        mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
+        mLocationRequest.setInterval(3000);
+        mLocationRequest.setFastestInterval(500);
 
         LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder();
         builder.addLocationRequest(mLocationRequest);

@@ -60,4 +60,5 @@
     <string name="data">data</string>
     <string name="file">file</string>
     <string name="filePreFix">MeldingOp</string>
+    <string name="close">Sluiten</string>
 </resources>

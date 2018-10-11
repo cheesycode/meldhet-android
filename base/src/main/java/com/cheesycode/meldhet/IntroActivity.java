@@ -2,7 +2,9 @@ package com.cheesycode.meldhet;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -12,25 +14,43 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.util.Log;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.github.paolorotolo.appintro.AppIntro2;
 import com.github.paolorotolo.appintro.AppIntroFragment;
 import com.github.paolorotolo.appintro.model.SliderPage;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class IntroActivity extends AppIntro2 {
     public static boolean isInstantApp =false;
     SharedPreferences prefs = null;
+    private FirebaseAuth mAuth;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setWindowFlag(this, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, true);
         getWindow().setStatusBarColor(Color.TRANSPARENT);
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser == null){
+            signInAnonymously();
+        }
 
         prefs = getSharedPreferences("com.cheesycode.MeldHet", MODE_PRIVATE);
         if (!prefs.getBoolean(getString(R.string.firstrun), true)) {
@@ -119,5 +139,41 @@ public class IntroActivity extends AppIntro2 {
     public void onSlideChanged(@Nullable Fragment oldFragment, @Nullable Fragment newFragment) {
         super.onSlideChanged(oldFragment, newFragment);
 
+    }
+
+    private void signInAnonymously() {
+        mAuth.signInAnonymously()
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Log.d("FIREBASEAUTH", "signInAnonymously:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                        } else {
+                            Log.w("FIREBASEAUTH", "signInAnonymously:failure", task.getException());
+                            Toast.makeText(IntroActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+
+                            AlertDialog.Builder builder = new AlertDialog.Builder(IntroActivity.this);
+                            builder.setTitle("De applicatie is momenteel niet beschikbaar probeer het later opnieuw");
+
+
+                            builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    finishAndRemoveTask();
+                                }
+                            });
+                            builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                @Override
+                                public void onDismiss(DialogInterface dialog) {
+                                    finishAndRemoveTask();
+                                }
+                            });
+
+                            builder.show();
+                        }
+                    }
+                });
     }
 }
