@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
@@ -22,9 +21,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.instantapps.InstantApps;
-
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -45,12 +41,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            if(IntroActivity.isInstantApp){
-                Toast.makeText(this, "WELKOM BIJ ONZE INSTANT APP", Toast.LENGTH_SHORT);
-            }
-
-            //TODO REPLACE WHEN ANDROID SDK IS FIXED
             try {
                  createImageFile();
             } catch (IOException ex) {
@@ -59,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
                 i9.setVisibility(View.GONE);
                 t9.setVisibility(View.GONE);
             }
-        }
         Intent intent = getIntent();
         setWindowFlag(this, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, true);
 
@@ -81,9 +70,9 @@ public class MainActivity extends AppCompatActivity {
             currentIssueType = view.toString();
         }
 
-        if(currentIssueType.equals(getResources().getString(R.string.item8))){
+        if(currentIssueType == getResources().getString(R.string.item8)){
             prefs = getSharedPreferences("com.cheesycode.MeldHet", MODE_PRIVATE);
-            prefs.edit().putBoolean("firstrun", true).apply();
+            prefs.edit().putBoolean(getString(R.string.firstrun), true).apply();
 
             Intent i = new Intent(this,IntroActivity.class);
             this.startActivity(i);
@@ -96,9 +85,9 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        if(currentIssueType.equals(getResources().getString(R.string.item7))){
+        if(currentIssueType == getResources().getString(R.string.item7)){
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Wat voor probleem wil je melden");
+            builder.setTitle(getString(R.string.popup_describe));
 
             final EditText input = new EditText(this);
             input.setSingleLine();
@@ -113,13 +102,13 @@ public class MainActivity extends AppCompatActivity {
 
             builder.setView(container);
 
-            builder.setPositiveButton("Melden", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton(getString(R.string.notify), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                    onImageOrTextClick(input.getText().toString());
                 }
             });
-            builder.setNegativeButton("Annuleren", new DialogInterface.OnClickListener() {
+            builder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.cancel();
@@ -157,14 +146,14 @@ public class MainActivity extends AppCompatActivity {
 
         protected void onActivityResult(int requestCode, int resultCode, Intent data) {
             Intent intent = new Intent(this, UploadActivity.class);
-            intent.putExtra("issueType", currentIssueType);
+            intent.putExtra(getString(R.string.issuetyoe), currentIssueType);
             if (requestCode == REQUEST_IMAGE_CAPTURE ) {
-                intent.putExtra("filepath", mCurrentPhotoPath);
+                intent.putExtra(getString(R.string.filepath), mCurrentPhotoPath);
             }
             else if(requestCode==34 ){
                 Bundle extras = data.getExtras();
-                Bitmap imageBitmap = (Bitmap) extras.get("data");
-                intent.putExtra("file", imageBitmap);
+                Bitmap imageBitmap = (Bitmap) extras.get(getString(R.string.data));
+                intent.putExtra(getString(R.string.file), imageBitmap);
             }
             if( resultCode == RESULT_OK){
                 this.startActivity(intent);
@@ -173,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
 
     private File createImageFile() throws IOException {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.GERMAN).format(new Date());
-        String imageFileName = "MeldingOp" + timeStamp + "_";
+        String imageFileName = getString(R.string.filePreFix) + timeStamp + "_";
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
                 imageFileName,

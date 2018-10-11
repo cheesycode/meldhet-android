@@ -33,12 +33,13 @@ public class ChatAdapter extends RecyclerView.Adapter {
         return new MessageHolder(v);
 }
 
+
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
         MessageHolder messageHolder= (MessageHolder)viewHolder;
         messageHolder.sender.setText(messages.get(i).sender);
         messageHolder.message.setText(messages.get(i).body);
-        if(messages.get(i).sender.equals(MessagingService.getToken(context))|| messages.get(i).sender.equals("U")){
+        if(!messages.get(i).sender.contains("Gemeente")){
             messageHolder.linearLayout.setGravity(RIGHT);
             messageHolder.sender.setText("U");
             messageHolder.message.setBackground(ContextCompat.getDrawable(context, R.drawable.chatsend));
@@ -46,15 +47,15 @@ public class ChatAdapter extends RecyclerView.Adapter {
     }
 
     @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+    @Override
     public int getItemCount() {
         return messages.size();
     }
 
-    // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
-    // you provide access to all the views for a data item in a view holder
     public static class MessageHolder extends RecyclerView.ViewHolder {
-        // each data item is just a string in this case
         LinearLayout linearLayout;
         public TextView message;
         TextView sender;

@@ -33,7 +33,7 @@ public class IntroActivity extends AppIntro2 {
         getWindow().setStatusBarColor(Color.TRANSPARENT);
 
         prefs = getSharedPreferences("com.cheesycode.MeldHet", MODE_PRIVATE);
-        if (!prefs.getBoolean("firstrun", true)) {
+        if (!prefs.getBoolean(getString(R.string.firstrun), true)) {
             Intent mainactivity = new Intent(IntroActivity.this, MainActivity.class);
             mainactivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             this.startActivity(mainactivity);
@@ -43,40 +43,33 @@ public class IntroActivity extends AppIntro2 {
 
         setSwipeLock(false);
         SliderPage sliderPage = new SliderPage();
-        sliderPage.setTitle("Welkom");
-        sliderPage.setDescription("Leuk dat je onze app gebruikt om de wereld groener te maken");
+        sliderPage.setTitle(getString(R.string.Intro1));
+        sliderPage.setDescription(getString(R.string.Intro1SubText));
 
         sliderPage.setImageDrawable(R.drawable.banner);
         sliderPage.setBgColor(getColor(R.color.colorAquaDark));
         addSlide(AppIntroFragment.newInstance(sliderPage));
         setSwipeLock(false);
-        sliderPage.setTitle("Vuil of Kapot");
-        sliderPage.setDescription("Elke dag loop jij langs honderden, misschien wel duizenden dingen die kapot, vies, onduidelijk of gewoon verkeerd zijn.");
+        sliderPage.setTitle(getString(R.string.Intro2));
+        sliderPage.setDescription(getString(R.string.Intro2Subtext));
         sliderPage.setImageDrawable(R.drawable.trash);
         sliderPage.setBgColor(getColor(R.color.colorGrapeFruitDark));
         addSlide(AppIntroFragment.newInstance(sliderPage));
         setSwipeLock(false);
-        sliderPage.setTitle("Doe er wat aan");
-        sliderPage.setDescription("Met deze app. Hiermee maak je namelijk eenvoudig melding van dat wat jouw stoort,");
+        sliderPage.setTitle(getString(R.string.Intro3));
+        sliderPage.setDescription(getString(R.string.Intro3SubText));
         sliderPage.setImageDrawable(R.drawable.city_hall_1);
         sliderPage.setBgColor(getColor(R.color.colorLavanderDark));
         addSlide(AppIntroFragment.newInstance(sliderPage));
         setSwipeLock(false);
-        sliderPage.setTitle("Klik op een Categorie");
-        sliderPage.setDescription("En maak een foto. Wij doen de rest, wij brengen de gemeente op de hoogte en zorgen dat alles geregeld moet worden. ");
+        sliderPage.setTitle(getString(R.string.Intro4));
+        sliderPage.setDescription(getString(R.string.Intro4SubText));
         sliderPage.setImageDrawable(R.drawable.nature);
         sliderPage.setBgColor(getColor(R.color.colorGrassDark));
         addSlide(AppIntroFragment.newInstance(sliderPage));
         setSwipeLock(false);
-
-
-//        Intent appLinkIntent = getIntent();
-//        String appLinkAction = appLinkIntent.getAction();
-//        Uri appLinkData = appLinkIntent.getData();
-//        if(appLinkAction != null){
-//            isInstantApp = true;
-//        }
     }
+
     public static void setWindowFlag(Activity activity, final int bits, boolean on) {
         Window win = activity.getWindow();
         WindowManager.LayoutParams winParams = win.getAttributes();
@@ -106,7 +99,7 @@ public class IntroActivity extends AppIntro2 {
         Intent mainactivity = new Intent(IntroActivity.this, MainActivity.class);
         mainactivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         this.startActivity(mainactivity);
-        prefs.edit().putBoolean("firstrun", false).apply();
+        prefs.edit().putBoolean(getString(R.string.firstrun), false).apply();
 
         finish();
     }
@@ -117,7 +110,7 @@ public class IntroActivity extends AppIntro2 {
         Intent mainactivity = new Intent(IntroActivity.this, MainActivity.class);
         mainactivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         this.startActivity(mainactivity);
-        prefs.edit().putBoolean("firstrun", false).apply();
+        prefs.edit().putBoolean(getString(R.string.firstrun), false).apply();
 
         finish();
     }

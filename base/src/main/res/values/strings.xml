@@ -43,4 +43,21 @@
     <string name="nogps">Helaas kunnen we geen meldingen maken zonder GPS. Probeer het later nogmaals</string>
     <string name="bericht">Bericht......</string>
     <string name="versturen">Versturen</string>
+    <string name="Intro2">Vuil of Kapot</string>
+    <string name="Intro2Subtext">Elke dag loop jij langs honderden, misschien wel duizenden dingen die kapot, vies, onduidelijk of gewoon verkeerd zijn.</string>
+    <string name="Intro1">Welkom</string>
+    <string name="Intro1SubText">Leuk dat je onze app gebruikt om de wereld groener te maken</string>
+    <string name="Intro3">Doe er wat aan</string>
+    <string name="Intro3SubText">Met deze app. Hiermee maak je namelijk eenvoudig melding van dat wat jouw stoort. Dat ka =n een losse stoeptegel zijn of een stuk onkruid. Maar ook overlast of kapotte verkeerslichten. Alles waar jij je aan stoort.</string>
+    <string name="Intro4">Klik op een Categorie</string>
+    <string name="Intro4SubText">En maak een foto. Wij doen de rest, wij brengen de gemeente op de hoogte en zorgen dat alles geregeld moet worden.</string>
+    <string name="firstrun">firstrun</string>
+    <string name="popup_describe">Wat voor probleem wil je melden</string>
+    <string name="notify">Melden</string>
+    <string name="cancel">Annuleren</string>
+    <string name="issuetyoe">issueType</string>
+    <string name="filepath">filepath</string>
+    <string name="data">data</string>
+    <string name="file">file</string>
+    <string name="filePreFix">MeldingOp</string>
 </resources>
