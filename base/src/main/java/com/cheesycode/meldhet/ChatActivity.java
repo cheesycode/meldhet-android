@@ -152,6 +152,9 @@ public class ChatActivity extends FragmentActivity implements OnMapReadyCallback
                             send.setVisibility(View.VISIBLE);
                             newMessage.setVisibility(View.VISIBLE);
                         }
+                        else{
+                            Toast.makeText(ChatActivity.this, getString(R.string.notprocessed), Toast.LENGTH_SHORT).show();
+                        }
                         mAdapter = new ChatAdapter(messages);
                         lastRecipient = messages.get(0).sender;
                         chatcontainer.setAdapter(mAdapter);
