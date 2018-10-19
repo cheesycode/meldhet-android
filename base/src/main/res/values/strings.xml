@@ -48,9 +48,9 @@
     <string name="Intro1">Welkom</string>
     <string name="Intro1SubText">Leuk dat je onze app gebruikt om de wereld groener te maken</string>
     <string name="Intro3">Doe er wat aan</string>
-    <string name="Intro3SubText">Met deze app. Hiermee maak je namelijk eenvoudig melding van dat wat jouw stoort. Dat ka =n een losse stoeptegel zijn of een stuk onkruid. Maar ook overlast of kapotte verkeerslichten. Alles waar jij je aan stoort.</string>
-    <string name="Intro4">Klik op een Categorie</string>
-    <string name="Intro4SubText">En maak een foto. Wij doen de rest, wij brengen de gemeente op de hoogte en zorgen dat alles geregeld moet worden.</string>
+    <string name="Intro3SubText">Met deze app. Hiermee maak je namelijk eenvoudig een melding van die losse stoeptegel waar je steeds over struikelt. Wij sturen hem door naar de gemeente en die zorgt voor de rest.</string>
+    <string name="Intro4">Klik en "Klik"</string>
+    <string name="Intro4SubText">Hoe? Heel simpel. Klik op een categorie en maak daarna een foto. Wij regelen de rest. Dus voorkom frustraties en formulieren en MeldHet!</string>
     <string name="firstrun">firstrun</string>
     <string name="popup_describe">Wat voor probleem wil je melden</string>
     <string name="notify">Melden</string>

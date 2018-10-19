@@ -2,7 +2,7 @@
 <shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
     <shortcut
         android:enabled="true"
-        android:icon="@drawable/ic_static_shortcut"
+        android:icon="@drawable/ic_pipes"
         android:shortcutId="static"
         android:shortcutShortLabel="@string/item1">
         <intent
@@ -13,7 +13,7 @@
     </shortcut>
     <shortcut
         android:enabled="true"
-        android:icon="@drawable/ic_static_shortcut"
+        android:icon="@drawable/ic_baseline_wb_incandescent_24px"
         android:shortcutId="static2"
         android:shortcutShortLabel="@string/item2">
         <intent
@@ -24,7 +24,7 @@
     </shortcut>
     <shortcut
         android:enabled="true"
-        android:icon="@drawable/ic_static_shortcut"
+        android:icon="@drawable/ic_city_avenue_perspective"
         android:shortcutId="static3"
         android:shortcutShortLabel="@string/item3">
         <intent
@@ -35,7 +35,7 @@
     </shortcut>
     <shortcut
         android:enabled="true"
-        android:icon="@drawable/ic_static_shortcut"
+        android:icon="@drawable/ic_baseline_nature_people_24px"
         android:shortcutId="static4"
         android:shortcutShortLabel="@string/item4">
         <intent
