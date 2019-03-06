@@ -29,24 +29,28 @@
         app:secondaryColor="@color/colorBlueJeans"
         app:textColor="@color/colorAccent"
         />
+
     <TextView
         android:id="@+id/explanation"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:textAlignment="center"
         android:layout_gravity="center"
+        android:layout_marginTop="4dp"
         android:gravity="center"
         android:text="Jouw melding is doorgezet naar de dichtsbijzijnde gemeente. \n We houden je op de hoogte van verdere ontwikkelingen."
-        android:visibility="gone"/>
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:visibility="gone" />
 
-    <Button
+    <Button style="@style/Widget.AppCompat.Button.Colored"
         android:id="@+id/again"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Maak nog een Melding"
+        android:text="Voltooien"
+        android:padding="15dp"
         android:visibility="gone"
+        android:background="@color/titleBackground"
         android:onClick="newIssue"/>
 
 

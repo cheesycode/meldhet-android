@@ -34,7 +34,7 @@
     <string name="messageurl">messages_url</string>
     <string name="create">create/</string>
     <string name="mrecipient">recipient</string>
-    <string name="failuremessage">Er is iets mis gegaan, maar wees niet bang. We zorgen dat alles alsnog verstuurd wordt als er weer verbinding is.</string>
+    <string name="failuremessage">Er is iets mis gegaan, controleer je internet verbinding en probeer het later nogmaals.</string>
     <string name="failuretitle">Oh Nee!!!</string>
     <string name="gpstitle">GPS Inschakelen?</string>
     <string name="gpsmessage">De GPS moet ingeschakeld zijn zodat we de gemeente de exacte locatie kunnen doorgeven.</string>
@@ -62,4 +62,5 @@
     <string name="filePreFix">MeldingOp</string>
     <string name="close">Sluiten</string>
     <string name="notprocessed">Deze zaak is nog niet inbehandeling genomen door de gemeente</string>
+    <string name="retry">Opnieuw Proberen</string>
 </resources>

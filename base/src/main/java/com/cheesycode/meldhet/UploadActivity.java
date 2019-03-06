@@ -80,7 +80,10 @@ public class UploadActivity extends AppCompatActivity {
     private Button button;
     private boolean uploadDone = false;
     private int gpstrycounter = 0;
-
+    private Timer timer;
+    private int progress = 0;
+    private String filepath;
+    private Bitmap imageFileFromIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,13 +97,13 @@ public class UploadActivity extends AppCompatActivity {
         setWindowFlag(this, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, true);
         animatedCircleLoadingView = findViewById(R.id.circle_loading_view);
         storage = FirebaseStorage.getInstance();
-        storage.setMaxOperationRetryTimeMillis(2000);
-        storage.setMaxUploadRetryTimeMillis(2000);
+        storage.setMaxOperationRetryTimeMillis(3000);
+        storage.setMaxUploadRetryTimeMillis(3000);
         storageReference = storage.getReference();
         Intent intent = getIntent();
-        String filepath = intent.getStringExtra("filepath");
+        filepath = intent.getStringExtra("filepath");
         issueType = intent.getStringExtra("issueType");
-        Timer timer = new Timer();
+        timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -117,8 +120,8 @@ public class UploadActivity extends AppCompatActivity {
                 uploadImage(filepath);
             }
             else{
-                Bitmap bitmap = (Bitmap) intent.getParcelableExtra("file");
-                uploadImage(bitmap);
+                imageFileFromIntent = (Bitmap) intent.getParcelableExtra("file");
+                uploadImage(imageFileFromIntent);
             }
         }
 
@@ -170,17 +173,27 @@ public class UploadActivity extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        Log.d("FAILURE_ON_UPLOAD", e.getMessage());
+
                         failedUpload();
                     }
                 })
                 .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                        double progress = (95.0 * taskSnapshot.getBytesTransferred() / taskSnapshot
+                        double progress = (30 * taskSnapshot.getBytesTransferred() / taskSnapshot
                                 .getTotalByteCount());
-                        animatedCircleLoadingView.setPercent((int) Math.round(progress));
+                        animatedCircleLoadingView.setPercent((int) Math.round(addProgress(progress)));
                     }
                 });
+    }
+
+    private int addProgress(double valueToAdd){
+        this.progress += valueToAdd;
+        if(progress>=100){
+            this.progress = 100;
+        }
+        return progress;
     }
 
     public void Volleypostfunc() {
@@ -204,8 +217,8 @@ public class UploadActivity extends AppCompatActivity {
                             Log.i("LOG_VOLLEY", response);
                             animatedCircleLoadingView.stopOk();
                             Transition transition = new Fade(Fade.IN);
-                            transition.setStartDelay(2500);
-                            transition.setDuration(2000);
+                            transition.setStartDelay(1500);
+                            transition.setDuration(1500);
                             TransitionManager.beginDelayedTransition(transitionsContainer, transition);
                             title.setVisibility(View.VISIBLE);
                             message.setVisibility(View.VISIBLE);
@@ -217,6 +230,8 @@ public class UploadActivity extends AppCompatActivity {
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             failedUpload();
+                            Log.d("VOLLEY_ERROR", error.toString());
+
                         }
                     }) {
                         @Override
@@ -261,8 +276,10 @@ public class UploadActivity extends AppCompatActivity {
         }
 
     };
+    private boolean failed = false;
 
     public void failedUpload(){
+        failed = true;
             animatedCircleLoadingView.stopFailure();
             Transition transition = new Fade(Fade.IN);
             transition.setStartDelay(2500);
@@ -273,6 +290,8 @@ public class UploadActivity extends AppCompatActivity {
             message.setText(getString(R.string.failuremessage));
             message.setVisibility(View.VISIBLE);
             button.setVisibility(View.VISIBLE);
+            button.setText(getString(R.string.retry));
+            button.setBackgroundResource(R.color.colorPrimary);
             getFusedLocationProviderClient(this).removeLocationUpdates(mLocationCallback);
 
     }
@@ -282,7 +301,7 @@ public class UploadActivity extends AppCompatActivity {
             failedUpload();
         }
         gpstrycounter++;
-        animatedCircleLoadingView.setPercent(95 + gpstrycounter);
+        animatedCircleLoadingView.setPercent(addProgress(gpstrycounter));
         if(UploadActivity.location == null){
             UploadActivity.location = location;}
         if(location.getAccuracy() < UploadActivity.location.getAccuracy()){
@@ -290,8 +309,10 @@ public class UploadActivity extends AppCompatActivity {
         }
         if(location.getAccuracy() < 15 && gpstrycounter >1){
             if(uploadDone) {
+                animatedCircleLoadingView.setPercent(76);
                 Volleypostfunc();
-                animatedCircleLoadingView.setPercent(100);
+                timer.cancel();
+                timer.purge();
                 getFusedLocationProviderClient(this).removeLocationUpdates(mLocationCallback);
             }
         }
@@ -358,11 +379,23 @@ public class UploadActivity extends AppCompatActivity {
     }
 
     public void newIssue(View v){
-        if(v == null){
-            Toast.makeText(this,getString(R.string.nogps), Toast.LENGTH_LONG).show();
-        }
-        Intent i = new Intent(this, MainActivity.class);
-        startActivity(i);
         getFusedLocationProviderClient(this).removeLocationUpdates(mLocationCallback);
+        if(!failed) {
+            Intent i = new Intent(this, MainActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(i);
+        }
+        else{
+            Intent intent = new Intent(this, UploadActivity.class);
+            intent.putExtra(getString(R.string.issuetyoe), this.issueType);
+            if (this.filepath != null ) {
+                intent.putExtra(getString(R.string.filepath), this.filepath);
+            }
+            else {
+                intent.putExtra(getString(R.string.file), this.imageFileFromIntent);
+            }
+                this.startActivity(intent);
+
+        }
     }
 }
