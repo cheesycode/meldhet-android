@@ -63,4 +63,6 @@
     <string name="close">Sluiten</string>
     <string name="notprocessed">Deze zaak is nog niet inbehandeling genomen door de gemeente</string>
     <string name="retry">Opnieuw Proberen</string>
+    <string name="permissionExplanation">We gebruiken camera voor de foto\'s, locatie voor de plek, en storage om de foto op te slaan mocht er iets mis gaan.</string>
+    <string name="PermissionExplanation2">Zonder deze functionaliteiten werkt de app helaas niet.</string>
 </resources>

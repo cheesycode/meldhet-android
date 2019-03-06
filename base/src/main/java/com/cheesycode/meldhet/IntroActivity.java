@@ -44,6 +44,8 @@ public class IntroActivity extends AppIntro2 {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        askForPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+
         setWindowFlag(this, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, true);
         getWindow().setStatusBarColor(Color.TRANSPARENT);
         mAuth = FirebaseAuth.getInstance();
@@ -59,7 +61,6 @@ public class IntroActivity extends AppIntro2 {
             this.startActivity(mainactivity);
             finish();
         }
-        askForPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
 
         setSwipeLock(false);
         SliderPage sliderPage = new SliderPage();
