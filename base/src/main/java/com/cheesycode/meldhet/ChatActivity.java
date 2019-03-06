@@ -162,7 +162,7 @@ public class ChatActivity extends FragmentActivity implements OnMapReadyCallback
                         mAdapter.notifyDataSetChanged();
                     }
                 });
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker,15));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker,150));
 
 
         return false;
@@ -257,10 +257,9 @@ public class ChatActivity extends FragmentActivity implements OnMapReadyCallback
                 marker.add(mMap.addMarker(mo));
             }
             LatLngBounds bounds = builder.build();
-            int padding = 200;
+            int padding = 20;
 
             CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
-
             if (ChatActivity.pushMarker != null) {
                 clickMarkerOptions(ChatActivity.pushMarker.getPosition());
             } else {
