@@ -287,7 +287,10 @@ public class UploadActivity extends AppCompatActivity {
             TransitionManager.beginDelayedTransition(transitionsContainer, transition);
             title.setText(getString(R.string.failuretitle));
             title.setVisibility(View.VISIBLE);
-            message.setText(getString(R.string.failuremessage));
+            if(gpstrycounter >=5) {
+                message.setText(getString(R.string.failuremessage));
+            }
+            else { message.setText((getString(R.string.noGPS)));}
             message.setVisibility(View.VISIBLE);
             button.setVisibility(View.VISIBLE);
             button.setText(getString(R.string.retry));
